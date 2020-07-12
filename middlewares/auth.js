@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const key = require('../jwtconfig');
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
@@ -14,7 +15,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, 'super-strong-secret');
+    payload = jwt.verify(token, key);
   } catch (err) {
     return res
       .status(401)

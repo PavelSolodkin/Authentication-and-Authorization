@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const url = /^(http:\/\/|https:\/\/|ftp:\/\/|ftps:\/\/|www\.)([0-9]|[a-z]|[A-Z]|[.*]|[-]|[_])+(\.)+([a-z]|.*)/i;
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -11,7 +10,10 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    match: url,
+    validate: {
+      validator: (v) => validator.isURL(v),
+      message: 'Неверный формат ссылки',
+    },
     required: true,
   },
   owner: {

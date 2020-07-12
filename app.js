@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -42,5 +41,5 @@ app.use('/users', usersRoute);
 app.use(noUrl);
 
 app.listen(PORT, () => {
-  console.log(`Приложение запущено на port:${PORT}`);
+  console.log(`Приложение запущено на localhost:${PORT}`);
 });

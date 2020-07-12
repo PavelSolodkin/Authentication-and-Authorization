@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const isEmail = require('validator/lib/isEmail');
-
-const url = /^(http:\/\/|https:\/\/|ftp:\/\/|ftps:\/\/|www\.)([0-9]|[a-z]|[A-Z]|[.*]|[-]|[_])+(\.)+([a-z]|.*)/i;
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,15 +18,18 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-    match: url,
+    validate: {
+      validator: (v) => validator.isURL(v),
+      message: 'Неверный формат ссылки',
+    },
   },
   email: {
     type: String,
     required: true,
     unique: true,
     validate: {
-      validator: (v) => isEmail(v),
-      message: 'Неверный формат почты.',
+      validator: (v) => validator.isEmail(v),
+      message: 'Неверный формат почты',
     },
   },
   password: {
