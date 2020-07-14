@@ -24,9 +24,10 @@ module.exports.getCards = (req, res) => {
     .catch((err) => res.status(500).send({ message: err.message }));
 };
 
+// eslint-disable-next-line consistent-return
 module.exports.deleteCard = (req, res) => {
   if (!ObjectId.isValid(req.params.id)) {
-    res.status(400).send({ message: 'Невозможный ID карточки' });
+    return res.status(400).send({ message: 'Невозможный ID карточки' });
   }
   Card.findById(req.params.id)
     .then((card) => {
